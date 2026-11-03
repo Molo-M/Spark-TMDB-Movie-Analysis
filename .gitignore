@@ -1,0 +1,24 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Spark output and leftovers
+data/_spark_write_test/
+spark-warehouse/
+metastore_db/
+derby.log
+*.crc
+
+# Editors and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

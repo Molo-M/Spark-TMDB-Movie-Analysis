@@ -1,0 +1,8 @@
+pyspark>=4.0
+pyarrow>=11.0
+pandas>=2.0,<3.0
+matplotlib
+seaborn
+requests
+python-dotenv
+jupyter
