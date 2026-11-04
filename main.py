@@ -2,7 +2,6 @@
 main.py
 Runs the whole pipeline from start to finish:
 fetch -> clean -> analyse -> visualise.
-(Steps 1 to 3 are in place so far; the others are added as they're built.)
 
 Usage:
     python main.py            # uses the saved raw data if it exists
@@ -13,8 +12,8 @@ import sys
 
 import pandas as pd
 
-from src import fetch, clean, analysis
-from src.config import NUMERIC_COLUMNS
+from src import fetch, clean, analysis, visualize
+from src.config import FIGURES_DIR, NUMERIC_COLUMNS
 from src.spark_session import get_spark
 
 
@@ -97,6 +96,21 @@ def main():
 
     print_section("Most Successful Directors")
     analysis.director_summary(df).show(truncate=False)
+
+    # Step 4: Visualizations (saved to reports/figures, not shown)
+    print_section("Step 4: Saving charts")
+    charts = [
+        (visualize.plot_distributions, "distributions.png"),
+        (visualize.plot_genre_counts, "genre_counts.png"),
+        (visualize.plot_correlations, "correlations.png"),
+        (visualize.plot_revenue_vs_budget, "revenue_vs_budget.png"),
+        (visualize.plot_roi_by_genre, "roi_by_genre.png"),
+        (visualize.plot_popularity_vs_rating, "popularity_vs_rating.png"),
+        (visualize.plot_yearly_revenue, "yearly_revenue.png"),
+        (visualize.plot_franchise_vs_standalone, "franchise_vs_standalone.png"),
+    ]
+    for plot, file_name in charts:
+        plot(df, FIGURES_DIR / file_name, show=False)
 
     spark.stop()
     print("\nDone!")
