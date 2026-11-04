@@ -2,7 +2,7 @@
 
 A data analysis pipeline built with **Apache Spark (PySpark)** that fetches data for 18 blockbuster movies from the [TMDB API](https://developer.themoviedb.org/docs), cleans and transforms it, and analyses which movies, franchises and directors performed best financially and with audiences.
 
-This is a rebuild of an [earlier version of the project written with Pandas](PANDAS_REPO_URL). Both versions produce the same results; this one uses Spark so the same pipeline could scale to millions of movies.
+This is a rebuild of an [earlier version of the project written with Pandas](https://github.com/Molo-M/TMDB-Movie-Data-Analysis). Both versions produce the same results; this one uses Spark so the same pipeline could scale to millions of movies.
 
 ### Project Links
 
