@@ -19,8 +19,9 @@ from src.config import (COLUMNS_TO_DROP, NAME_LIST_COLUMNS,
 # ----------------------------------------------------------------------
 
 def join_names(names):
-    """Join an array of names with "|".
+    """Join an array of names with "|", skipping blank names.
     Returns null for an empty or missing array, so it counts as missing data."""
+    names = F.filter(names, lambda name: name != "")
     return F.when(F.size(names) > 0, F.concat_ws("|", names))
 
 
@@ -63,7 +64,11 @@ def extract_credits(df):
 def extract_names(df):
     """Clean genres, spoken languages, production countries and companies."""
     for col in NAME_LIST_COLUMNS:
-        df = df.withColumn(col, join_names(F.col(col)["name"]))
+        # For spoken languages, "name" is the language's name in that language
+        # (e.g. "Español"), and TMDB leaves it blank for some languages.
+        # "english_name" (e.g. "Spanish") is always filled in and easier to read.
+        field = "english_name" if col == "spoken_languages" else "name"
+        df = df.withColumn(col, join_names(F.col(col)[field]))
     return df
 
 
