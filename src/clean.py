@@ -222,4 +222,4 @@ def save_clean_data(df, path=CLEAN_DATA_PATH):
     """Save the clean DataFrame as Parquet, which keeps the column types.
     coalesce(1) writes a single file, since the data is small."""
     df.coalesce(1).write.mode("overwrite").parquet(str(path))
-    print(f"Saved clean data to {path}")
+    print(f"Saved clean data...")
