@@ -82,3 +82,8 @@ FINAL_COLUMN_ORDER = [
     "production_countries", "vote_count", "vote_average", "popularity", "runtime",
     "overview", "spoken_languages", "poster_path", "cast", "cast_size", "director", "crew_size"
 ]
+
+# Numeric columns used for summary statistics and correlations
+NUMERIC_COLUMNS = [
+    "budget_musd", "revenue_musd", "vote_count", "vote_average", "popularity", "runtime"
+]
