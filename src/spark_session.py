@@ -38,4 +38,12 @@ def get_spark():
 
     # Only show warnings and errors, not Spark's routine INFO messages
     spark.sparkContext.setLogLevel("WARN")
+    # The rankings use a window with no partitionBy, so Spark warns that all the
+    # data is moved into a single partition. That matters for large datasets,
+    # but it's the right choice for 18 movies, so this one warning is hidden.
+    jvm = spark.sparkContext._jvm
+    jvm.org.apache.logging.log4j.core.config.Configurator.setLevel(
+        "org.apache.spark.sql.execution.window.WindowExec",
+        jvm.org.apache.logging.log4j.Level.ERROR,
+    )    
     return spark
